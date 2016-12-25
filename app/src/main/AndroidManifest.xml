@@ -15,6 +15,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".GameScreen" />
+        <activity android:name=".LostScreen" />
+        <activity android:name=".WinScreen" />
+        <activity android:name=".SettingsScreen"></activity>
     </application>
 
 </manifest>
