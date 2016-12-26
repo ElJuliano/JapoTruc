@@ -17,6 +17,8 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import java.util.logging.Level;
 
 import perso.shit.bull.julien.japotruc.logic.GameSession;
+import perso.shit.bull.julien.japotruc.utils.SwipeDetector;
+import perso.shit.bull.julien.japotruc.R;
 
 public class GameScreen extends BackToWelcome {
 
@@ -36,11 +38,12 @@ public class GameScreen extends BackToWelcome {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_game_screen);
+
         mediaPlayerWin = MediaPlayer.create(getApplicationContext(), R.raw.japosiffle1);
         mediaPlayerLose = MediaPlayer.create(getApplicationContext(), R.raw.japosiffle2);
-        japochiDisplay = (ImageView) findViewById(R.id.japochiDisplay);
-
-        setContentView(R.layout.activity_game_screen);
+        japochiDisplay = (ImageView)findViewById(R.id.japochiDisplay);
+        setTouchListener(japochiDisplay);
         scoreTextView = (TextView) findViewById(R.id.scoreText);
         scoreTextView.setText(String.valueOf(0));
 
@@ -52,11 +55,22 @@ public class GameScreen extends BackToWelcome {
     }
 
 
+
     /**
      * Called each time the user provides a good answer
      */
-    private void switchImage() {
-
+    private void setTouchListener(View currentView) {
+        new SwipeDetector(currentView).setOnSwipeListener(new SwipeDetector.onSwipeEvent() {
+            @Override
+            public void SwipeEventDetected(View v, SwipeDetector.SwipeTypeEnum swipeType) {
+                if(swipeType==SwipeDetector.SwipeTypeEnum.LEFT_TO_RIGHT) {
+                    checkJapanese(v);
+                }
+                else if(swipeType==SwipeDetector.SwipeTypeEnum.RIGHT_TO_LEFT) {
+                    checkChinese(v);
+                }
+            }
+        });
     }
 
     /**
