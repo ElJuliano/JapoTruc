@@ -7,6 +7,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
+
+import java.util.logging.Level;
 
 import perso.shit.bull.julien.japotruc.logic.GameSession;
 
@@ -14,11 +17,16 @@ public class GameScreen extends BackToWelcome {
 
     private GameSession session;
 
+    private TextView scoreTextVew;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_screen);
+        scoreTextVew = (TextView)findViewById(R.id.scoreText);
+        scoreTextVew.setText(0);
         session = new GameSession();
+        setJapochiImage(session.getCurrentImage());
     }
 
 
@@ -37,9 +45,13 @@ public class GameScreen extends BackToWelcome {
     public void checkChinese(View view){
         if(session.isCurrentJapanese()){
             //go to looser
+            gotToLost(view);
         }
         else{
-
+            // carry ON
+            scoreTextVew.setText(session.getScore());
+            session.nextImage();
+            setJapochiImage(session.getCurrentImage());
         }
     }
 
@@ -51,10 +63,14 @@ public class GameScreen extends BackToWelcome {
      */
     public void checkJapanese(View view){
         if(session.isCurrentJapanese()){
-            //go to looser
+            //continue
+            scoreTextVew.setText(session.getScore());
+            session.nextImage();
+            setJapochiImage(session.getCurrentImage());
         }
         else{
-
+            //go to looser
+            gotToLost(view);
         }
     }
 
@@ -68,5 +84,15 @@ public class GameScreen extends BackToWelcome {
         japochiDisplay.setBackgroundResource(imageId);
     }
 
+    public void gotToLost(View view){
+        Intent intent = new Intent(this, LostScreen.class);
+        startActivity(intent);
+        myLogger.log(Level.INFO, "Go to Lost view from "+ view.getClass().toString());
+    }
+
+    public void tryAgain() {
+        scoreTextVew.setText(0);
+        this.session = new GameSession();
+    }
 
 }

@@ -28,6 +28,7 @@ public class GameSession {
     public GameSession(){
         this.previousImages = new ArrayList<String>();
         this.score = 0;
+        determineNextImage();
     }
 
     public GameSession(String imageName){

@@ -13,7 +13,7 @@ import java.util.logging.Logger;
 
 public class BackToWelcome extends AppCompatActivity {
 
-    private static Logger myLogger = Logger.getLogger("myLogger");
+    protected static Logger myLogger = Logger.getLogger("myLogger");
     /**
      * Allow switching back to welcome activity
      */
