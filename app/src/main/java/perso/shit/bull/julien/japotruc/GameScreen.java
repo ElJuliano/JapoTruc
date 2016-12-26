@@ -39,13 +39,7 @@ public class GameScreen extends BackToWelcome {
         mediaPlayerWin = MediaPlayer.create(getApplicationContext(), R.raw.japosiffle1);
         mediaPlayerLose = MediaPlayer.create(getApplicationContext(), R.raw.japosiffle2);
         japochiDisplay = (ImageView) findViewById(R.id.japochiDisplay);
-        japochiDisplay.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if(event.get)
-                return false;
-            }
-        });
+
         setContentView(R.layout.activity_game_screen);
         scoreTextView = (TextView) findViewById(R.id.scoreText);
         scoreTextView.setText(String.valueOf(0));
