@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
@@ -26,7 +27,7 @@ public class GameScreen extends BackToWelcome {
 
     private TextView scoreTextView;
 
-    private MediaPlayer mediaPlayerWin, mediaPlayerLose;
+    private MediaPlayer mediaPlayerWin, mediaPlayerLose, mediaPlayerRight, mediaPlayerLeft;
 
     private ImageView japochiDisplay;
     /**
@@ -40,8 +41,7 @@ public class GameScreen extends BackToWelcome {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_screen);
 
-        mediaPlayerWin = MediaPlayer.create(getApplicationContext(), R.raw.japosiffle1);
-        mediaPlayerLose = MediaPlayer.create(getApplicationContext(), R.raw.japosiffle2);
+        initMediaPlayer();
         japochiDisplay = (ImageView)findViewById(R.id.japochiDisplay);
         setTouchListener(japochiDisplay);
         scoreTextView = (TextView) findViewById(R.id.scoreText);
@@ -55,6 +55,12 @@ public class GameScreen extends BackToWelcome {
     }
 
 
+    private void initMediaPlayer(){
+        mediaPlayerWin = MediaPlayer.create(getApplicationContext(), R.raw.yahoo);
+        mediaPlayerLose = MediaPlayer.create(getApplicationContext(), R.raw.losingsong);
+        mediaPlayerRight = MediaPlayer.create(getApplicationContext(), R.raw.rightsong);
+        mediaPlayerLeft = MediaPlayer.create(getApplicationContext(), R.raw.leftsong);
+    }
 
     /**
      * Called each time the user provides a good answer
@@ -79,13 +85,13 @@ public class GameScreen extends BackToWelcome {
      * If not then launch looser activity
      */
     public void checkChinese(View view) {
+        mediaPlayerLeft.start();
         if (session.isCurrentJapanese()) {
             //go to looser
             mediaPlayerLose.start();
             gotToLost(view);
         } else {
             // carry ON
-            mediaPlayerWin.start();
             session.nextImage();
             scoreTextView.setText(String.valueOf(session.getScore()));
             setJapochiImage(session.getCurrentImage());
@@ -100,9 +106,9 @@ public class GameScreen extends BackToWelcome {
      * @param view
      */
     public void checkJapanese(View view) {
+        mediaPlayerRight.start();
         if (session.isCurrentJapanese()) {
             //continue
-            mediaPlayerWin.start();
             session.nextImage();
             scoreTextView.setText(String.valueOf(session.getScore()));
             setJapochiImage(session.getCurrentImage());
