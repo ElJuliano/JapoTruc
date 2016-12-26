@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_game_screen"
     android:layout_width="match_parent"
@@ -10,4 +11,52 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="perso.shit.bull.julien.japotruc.GameScreen">
 
+    <Button
+        android:text="Back "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/backButtonGame"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:onClick="switchToWelcome"/>
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/chinois"
+        android:id="@+id/chineseButton"
+        android:layout_above="@+id/backButtonGame"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="361dp"
+        android:layout_toLeftOf="@+id/japaneseButton"
+        android:layout_toStartOf="@+id/japaneseButton"
+        android:layout_alignParentTop="true"
+        android:onClick="checkChinese"/>
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/japonais"
+        android:layout_above="@+id/backButtonGame"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/japaneseButton"
+        android:layout_alignTop="@+id/chineseButton"
+        android:onClick="checkJapanese"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/chi1"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/japochiDisplay"
+        android:layout_above="@+id/japaneseButton"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 </RelativeLayout>
