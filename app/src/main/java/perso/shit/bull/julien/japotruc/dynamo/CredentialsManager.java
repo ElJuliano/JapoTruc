@@ -20,7 +20,7 @@ public class CredentialsManager {
                 Regions.US_WEST_2 // Region
         );
     }
-    public CognitoCachingCredentialsProvider getCredentialPrvider() {
+    public CognitoCachingCredentialsProvider getCredentialProvider() {
         return this.credentialsProvider;
     }
 }

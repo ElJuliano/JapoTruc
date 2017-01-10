@@ -9,14 +9,39 @@ import android.view.View;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import perso.shit.bull.julien.japotruc.dbbeans.Scores;
+import perso.shit.bull.julien.japotruc.dynamo.CredentialsManager;
+import perso.shit.bull.julien.japotruc.dynamo.DynamoDBManager;
+
 public class WelcomeScreen extends Activity {
 
     private Logger logger = Logger.getLogger("WelcomeLogger");
+
+    private CredentialsManager credentialsManager;
+
+    private DynamoDBManager dbManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome_screen);
+        System.out.println("launching credential manager");
+        credentialsManager = new CredentialsManager(getApplicationContext());
+        System.out.println("launching db manager");
+        dbManager = new DynamoDBManager(credentialsManager.getCredentialProvider());
+
+        Runnable runnable = new Runnable() {
+            public void run() {
+                Scores score = new Scores();
+                score.setUser_id("ElJuliano");
+                score.setScore(1000);
+                System.out.println("User created");
+                dbManager.save(score);
+            }
+        };
+        Thread mythread = new Thread(runnable);
+        mythread.start();
+
     }
 
     /**
