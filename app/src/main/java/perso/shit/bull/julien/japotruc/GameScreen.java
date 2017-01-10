@@ -19,7 +19,6 @@ import java.util.logging.Level;
 
 import perso.shit.bull.julien.japotruc.logic.GameSession;
 import perso.shit.bull.julien.japotruc.utils.SwipeDetector;
-import perso.shit.bull.julien.japotruc.R;
 
 public class GameScreen extends BackToWelcome {
 
@@ -30,10 +29,7 @@ public class GameScreen extends BackToWelcome {
     private MediaPlayer mediaPlayerWin, mediaPlayerLose, mediaPlayerRight, mediaPlayerLeft;
 
     private ImageView japochiDisplay;
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
+
     private GoogleApiClient client;
 
     @Override

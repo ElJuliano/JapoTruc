@@ -1,5 +1,6 @@
 package perso.shit.bull.julien.japotruc;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,7 +9,7 @@ import android.view.View;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class WelcomeScreen extends AppCompatActivity {
+public class WelcomeScreen extends Activity {
 
     private Logger logger = Logger.getLogger("WelcomeLogger");
 
