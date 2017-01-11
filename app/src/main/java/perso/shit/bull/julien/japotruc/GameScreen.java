@@ -20,7 +20,7 @@ import perso.shit.bull.julien.japotruc.utils.SwipeDetector;
 
 public class GameScreen extends switchActivity {
 
-    private static final String CURRENT_SCORE = "CURRENT_SCORE";
+    public static final String CURRENT_SCORE = "CURRENT_SCORE";
 
     private GameSession session;
 

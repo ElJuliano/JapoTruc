@@ -71,7 +71,7 @@
         android:layout_toRightOf="@+id/textView2"
         android:layout_marginLeft="26dp"
         android:layout_marginStart="26dp"
-        android:id="@+id/scorTextView"
+        android:id="@+id/scoreTextView"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:textAlignment="center"
