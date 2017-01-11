@@ -6,6 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import com.amazonaws.services.dynamodbv2.model.ScanResult;
+
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -32,11 +35,18 @@ public class WelcomeScreen extends Activity {
 
         Runnable runnable = new Runnable() {
             public void run() {
+                ArrayList<String>list = new ArrayList<String>();
+                list.add("score");
+                ScanResult result = dbManager.getClient().scan("Scores", list);
+                System.out.println("#######"+result.getCount()+"############");
                 Scores score = new Scores();
                 score.setUser_id("ElJuliano");
                 score.setScore(1000);
                 System.out.println("User created");
                 dbManager.save(score);
+                result = dbManager.getClient().scan("Scores", list);
+                System.out.println("#######"+result.getCount()+"############");
+                System.out.println("#######"+result.getItems().toString()+"############");
             }
         };
         Thread mythread = new Thread(runnable);

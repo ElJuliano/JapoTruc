@@ -2,6 +2,7 @@ package perso.shit.bull.julien.japotruc.dynamo;
 
 import com.amazonaws.auth.CognitoCachingCredentialsProvider;
 import com.amazonaws.auth.CognitoCredentialsProvider;
+import com.amazonaws.regions.Region;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.dynamodbv2.*;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.*;
@@ -22,6 +23,7 @@ public class DynamoDBManager {
 
     public DynamoDBManager(CognitoCredentialsProvider credentialsProvider) {
         ddbClient = new AmazonDynamoDBClient(credentialsProvider);
+        ddbClient.setRegion(Region.getRegion(Regions.US_WEST_2));
         mapper = new DynamoDBMapper(ddbClient);
     }
 
