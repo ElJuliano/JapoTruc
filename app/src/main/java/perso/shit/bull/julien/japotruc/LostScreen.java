@@ -1,9 +1,8 @@
 package perso.shit.bull.julien.japotruc;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class LostScreen extends BackToWelcome {
+public class LostScreen extends switchActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

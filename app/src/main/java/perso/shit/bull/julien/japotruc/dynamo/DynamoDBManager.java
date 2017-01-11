@@ -6,7 +6,9 @@ import com.amazonaws.regions.Region;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.dynamodbv2.*;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.*;
+import com.amazonaws.services.dynamodbv2.model.ScanResult;
 
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -35,12 +37,44 @@ public class DynamoDBManager {
         return this.mapper;
     }
 
+    /**
+     * Saves a Score object in the Scores Table
+     * @param score
+     */
     public void save(Scores score) {
         Logger.getAnonymousLogger().log(Level.INFO, "saving score");
         mapper.save(score);
     }
 
-    public void retrieveTable(String tableName) {
+    /**
+     * TODO : retrieve all scores from the dynamo DB and return them as a Map
+     */
+    public void retrieveAllScores() {
+        Runnable runnable = new Runnable() {
+            public void run() {
+                ArrayList<String> list = new ArrayList<String>();
+                list.add("score");
+                ScanResult result = ddbClient.scan("Scores", list);
+                System.out.println("#######"+result.getCount()+"############");
+                Scores score = new Scores();
+                score.setUser_id("ElJuliano");
+                score.setScore(1000);
+                System.out.println("User created");
+                mapper.save(score);
+                result = ddbClient.scan("Scores", list);
+                System.out.println("#######"+result.getCount()+"############");
+                System.out.println("#######"+result.getItems().toString()+"############");
+            }
+        };
+        Thread mythread = new Thread(runnable);
+        mythread.start();
+    }
+
+    /**TODO
+     * Retrieve the list with all the scores done by the user
+     * @param user_id
+     */
+    public void retrieveUserScores (String user_id){
 
     }
 

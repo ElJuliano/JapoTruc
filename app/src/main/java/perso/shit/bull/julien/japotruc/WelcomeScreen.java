@@ -32,26 +32,6 @@ public class WelcomeScreen extends Activity {
         credentialsManager = new CredentialsManager(getApplicationContext());
         System.out.println("launching db manager");
         dbManager = new DynamoDBManager(credentialsManager.getCredentialProvider());
-
-        Runnable runnable = new Runnable() {
-            public void run() {
-                ArrayList<String>list = new ArrayList<String>();
-                list.add("score");
-                ScanResult result = dbManager.getClient().scan("Scores", list);
-                System.out.println("#######"+result.getCount()+"############");
-                Scores score = new Scores();
-                score.setUser_id("ElJuliano");
-                score.setScore(1000);
-                System.out.println("User created");
-                dbManager.save(score);
-                result = dbManager.getClient().scan("Scores", list);
-                System.out.println("#######"+result.getCount()+"############");
-                System.out.println("#######"+result.getItems().toString()+"############");
-            }
-        };
-        Thread mythread = new Thread(runnable);
-        mythread.start();
-
     }
 
     /**
@@ -70,5 +50,11 @@ public class WelcomeScreen extends Activity {
         Intent intent = new Intent(this, GameScreen.class);
         startActivity(intent);
         logger.log(Level.INFO, "### Going to Game from Welcome ###");
+    }
+
+    public void goToHighScore(View view) {
+        Intent intent = new Intent(this, HighScores.class);
+        startActivity(intent);
+        logger.log(Level.INFO, "### Going to HighScores from Welcome ###");
     }
 }

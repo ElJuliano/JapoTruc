@@ -1,9 +1,8 @@
 package perso.shit.bull.julien.japotruc;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class WinScreen extends BackToWelcome {
+public class WinScreen extends switchActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

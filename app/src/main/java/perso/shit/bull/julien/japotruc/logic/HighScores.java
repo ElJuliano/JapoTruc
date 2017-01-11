@@ -13,23 +13,18 @@ import java.util.Map;
  */
 public class HighScores {
 
-    private Map<String, String> mapNameScore;
-
-    private FileReader reader;
-
-    private File memFile;
-
-    private final static String FILE_PATH = "";
+    private Map<String, String> mapScore;
 
     public HighScores(){
 
     }
 
-    /**
-     * This method will setUp the file and read it in order to recover the list
-     * of data to be displayed
-     */
-    private void retrieveScoreList() {
-
+    public void setMapScore(Map<String,String> scoreMap){
+        this.mapScore = scoreMap;
     }
+
+    public Map<String,String> getMapScore() {
+        return this.mapScore;
+    }
+
 }

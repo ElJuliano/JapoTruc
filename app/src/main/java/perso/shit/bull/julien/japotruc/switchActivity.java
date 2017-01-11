@@ -11,7 +11,7 @@ import java.util.logging.Logger;
  * Created by Julien on 26/12/2016.
  */
 
-public class BackToWelcome extends AppCompatActivity {
+public class switchActivity extends AppCompatActivity {
 
     protected static Logger myLogger = Logger.getLogger("myLogger");
     /**
@@ -21,5 +21,11 @@ public class BackToWelcome extends AppCompatActivity {
         Intent intent = new Intent(this, WelcomeScreen.class);
         startActivity(intent);
         myLogger.log(Level.INFO, "Back to welcome from "+view.getClass().toString());
+    }
+
+    public void switchToGame(View view) {
+        Intent intent = new Intent(this, GameScreen.class);
+        startActivity(intent);
+        myLogger.log(Level.INFO, "### Going to Game from "+view.getClass().toString()+" ###");
     }
 }

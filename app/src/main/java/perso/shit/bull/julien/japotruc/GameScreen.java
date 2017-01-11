@@ -4,8 +4,6 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -20,7 +18,9 @@ import java.util.logging.Level;
 import perso.shit.bull.julien.japotruc.logic.GameSession;
 import perso.shit.bull.julien.japotruc.utils.SwipeDetector;
 
-public class GameScreen extends BackToWelcome {
+public class GameScreen extends switchActivity {
+
+    private static final String CURRENT_SCORE = "CURRENT_SCORE";
 
     private GameSession session;
 
@@ -127,6 +127,7 @@ public class GameScreen extends BackToWelcome {
 
     public void gotToLost(View view) {
         Intent intent = new Intent(this, LostScreen.class);
+        intent.putExtra(CURRENT_SCORE, this.session.getScore());
         startActivity(intent);
         myLogger.log(Level.INFO, "Go to Lost view from " + view.getClass().toString());
     }
