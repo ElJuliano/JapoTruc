@@ -2,19 +2,19 @@ package perso.shit.bull.julien.japotruc;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
-import com.amazonaws.services.dynamodbv2.model.ScanResult;
-
-import java.util.ArrayList;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import perso.shit.bull.julien.japotruc.dbbeans.Scores;
 import perso.shit.bull.julien.japotruc.dynamo.CredentialsManager;
 import perso.shit.bull.julien.japotruc.dynamo.DynamoDBManager;
+import perso.shit.bull.julien.japotruc.sqlite.ScoreBean;
+import perso.shit.bull.julien.japotruc.sqlite.ScoreDBHelper;
+import perso.shit.bull.julien.japotruc.sqlite.ScoreDBReader;
+import perso.shit.bull.julien.japotruc.sqlite.ScoreDBWriter;
 
 public class WelcomeScreen extends Activity {
 
@@ -32,6 +32,40 @@ public class WelcomeScreen extends Activity {
         credentialsManager = new CredentialsManager(getApplicationContext());
         System.out.println("launching db manager");
         dbManager = new DynamoDBManager(credentialsManager.getCredentialProvider());
+
+        /**
+         * Tests for the DB  START
+         */
+        System.out.println("Starting DB tests");
+        ScoreDBHelper dbHelper = new ScoreDBHelper(this.getApplicationContext());
+        System.out.println("------------------------");
+        System.out.println(dbHelper.getDatabaseName());
+        System.out.println("------------------------");
+        System.out.println("writing entries in the database");
+        System.out.println("------------------------");
+        ScoreDBWriter writer = new ScoreDBWriter(dbHelper);
+        writer.writeScore("Julio", 20);
+        writer.writeScore("Eliot", 2);
+        writer.writeScore("renaud", 32);
+        writer.writeScore("Stephanie", 39);
+        writer.writeScore("Lisa", 120);
+        writer.writeScore("Lea", 3);
+        System.out.println("------------------------");
+        System.out.println("values writed, time to read");
+        System.out.println("------------------------");
+        ScoreDBReader reader = new ScoreDBReader(dbHelper);
+        for(ScoreBean bean : reader.getTableContent()) {
+            System.out.println("Id : "+ bean.getId() +" Username : " + bean.getUserName() + " score : " + bean.getScore());
+        }
+
+        System.out.println("------------------------");
+        System.out.println("Reading and printing the values");
+        System.out.println("------------------------");
+
+
+        /**
+         * Tests for the DB  END
+         */
     }
 
     /**

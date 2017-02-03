@@ -1,6 +1,5 @@
 package perso.shit.bull.julien.japotruc.dynamo;
 
-import com.amazonaws.auth.CognitoCachingCredentialsProvider;
 import com.amazonaws.auth.CognitoCredentialsProvider;
 import com.amazonaws.regions.Region;
 import com.amazonaws.regions.Regions;
@@ -12,7 +11,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import perso.shit.bull.julien.japotruc.dbbeans.Scores;
+import perso.shit.bull.julien.japotruc.dbbeans.ScoreMapping;
 
 /**
  * Created by Julien on 10/01/2017.
@@ -38,10 +37,10 @@ public class DynamoDBManager {
     }
 
     /**
-     * Saves a Score object in the Scores Table
+     * Saves a ScoreBean object in the ScoreMapping Table
      * @param score
      */
-    public void save(Scores score) {
+    public void save(ScoreMapping score) {
         Logger.getAnonymousLogger().log(Level.INFO, "saving score");
         mapper.save(score);
     }
@@ -54,14 +53,14 @@ public class DynamoDBManager {
             public void run() {
                 ArrayList<String> list = new ArrayList<String>();
                 list.add("score");
-                ScanResult result = ddbClient.scan("Scores", list);
+                ScanResult result = ddbClient.scan("ScoreMapping", list);
                 System.out.println("#######"+result.getCount()+"############");
-                Scores score = new Scores();
+                ScoreMapping score = new ScoreMapping();
                 score.setUser_id("ElJuliano");
                 score.setScore(1000);
                 System.out.println("User created");
                 mapper.save(score);
-                result = ddbClient.scan("Scores", list);
+                result = ddbClient.scan("ScoreMapping", list);
                 System.out.println("#######"+result.getCount()+"############");
                 System.out.println("#######"+result.getItems().toString()+"############");
             }
