@@ -3,7 +3,7 @@ package perso.shit.bull.julien.japotruc;
 import android.os.Bundle;
 import android.widget.EditText;
 
-public class SettingsScreen extends switchActivity {
+public class SettingsScreen extends SwitchActivity {
 
     private int scoreToWin;
 

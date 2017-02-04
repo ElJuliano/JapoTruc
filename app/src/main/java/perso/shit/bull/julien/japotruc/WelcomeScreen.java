@@ -1,36 +1,22 @@
 package perso.shit.bull.julien.japotruc;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import java.io.Serializable;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import perso.shit.bull.julien.japotruc.dynamo.CredentialsManager;
 import perso.shit.bull.julien.japotruc.dynamo.DynamoDBManager;
-import perso.shit.bull.julien.japotruc.sqlite.ScoreBean;
-import perso.shit.bull.julien.japotruc.sqlite.ScoreDBHelper;
-import perso.shit.bull.julien.japotruc.sqlite.ScoreDBReader;
-import perso.shit.bull.julien.japotruc.sqlite.ScoreDBWriter;
-import perso.shit.bull.julien.japotruc.sqlite.ScoreListHelper;
 
-public class WelcomeScreen extends Activity {
-
-    public static final String HIGH_SCORES = "HIGH_SCORES";
+public class WelcomeScreen extends SwitchActivity {
 
     private Logger logger = Logger.getLogger("WelcomeLogger");
 
     private CredentialsManager credentialsManager;
 
     private DynamoDBManager dbManager;
-
-    private ScoreDBReader reader;
-
-    private ScoreDBHelper helper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,33 +30,33 @@ public class WelcomeScreen extends Activity {
         /**
          * Tests for the DB  START
          */
+        /**
         System.out.println("Starting DB tests");
-        helper = new ScoreDBHelper(this.getApplicationContext());
         System.out.println("------------------------");
-        System.out.println(helper.getDatabaseName());
+        System.out.println(getHelper().getDatabaseName());
         System.out.println("------------------------");
         System.out.println("writing entries in the database");
         System.out.println("------------------------");
-        ScoreDBWriter writer = new ScoreDBWriter(helper);
-        writer.writeScore("Julio", 21);
-        writer.writeScore("Eliot", 12);
-        writer.writeScore("renaud", 32);
-        writer.writeScore("Stephanie", 19);
-        writer.writeScore("Lisa", 120);
-        writer.writeScore("Lea", 3);
+        getWriter().writeScore("Julio", 21);
+        getWriter().writeScore("Eliot", 12);
+        getWriter().writeScore("renaud", 32);
+        getWriter().writeScore("Stephanie", 19);
+        getWriter().writeScore("Lisa", 120);
+        getWriter().writeScore("Lea", 3);
         System.out.println("------------------------");
         System.out.println("values writed, time to read");
         System.out.println("------------------------");
-        reader = new ScoreDBReader(helper);
-        System.out.println(reader.getTableContent().size());
-        for(ScoreBean bean : ScoreListHelper.sortDescending(reader.getTableContent())) {
+        System.out.println(getReader().getTableContent().size());
+        for(ScoreBean bean : ScoreListHelper.sortDescending(getReader().getTableContent())) {
             System.out.println("Id : "+ bean.getId() +" Username : " + bean.getUserName() + " score : " + bean.getScore());
         }
 
         System.out.println("------------------------");
         System.out.println("Reading and printing the values");
         System.out.println("------------------------");
-        System.out.println(reader.getTableContent().size());
+        System.out.println(getReader().getTableContent().size());
+
+         **/
 
         /**
          * Tests for the DB  END
@@ -96,13 +82,9 @@ public class WelcomeScreen extends Activity {
     }
 
     public void goToHighScore(View view) {
-        System.out.println("#####################");
-        System.out.println(helper.getDatabaseName());
-        System.out.println(reader.getTableContent());
-        System.out.println(ScoreListHelper.sortDescending(reader.getTableContent()).toString());
         Intent intent = new Intent(this, HighScores.class);
-        intent.putExtra(HIGH_SCORES, (Serializable)ScoreListHelper.sortDescending(reader.getTableContent()));
         startActivity(intent);
         logger.log(Level.INFO, "### Going to HighScores from Welcome ###");
     }
+
 }

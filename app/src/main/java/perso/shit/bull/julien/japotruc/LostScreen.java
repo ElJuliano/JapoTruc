@@ -1,10 +1,20 @@
 package perso.shit.bull.julien.japotruc;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
-public class LostScreen extends switchActivity {
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import perso.shit.bull.julien.japotruc.utils.Constants;
+
+public class LostScreen extends SwitchActivity {
+
+    private Logger logger = Logger.getLogger("LostLogger");
 
     private static final String NULL_NULL_NULL = "null..null..null";
 
@@ -26,7 +36,7 @@ public class LostScreen extends switchActivity {
 
         setContentView(R.layout.activity_lost_screen);
         Intent intent = getIntent();
-        score = intent.getIntExtra(GameScreen.CURRENT_SCORE, 0);
+        score = intent.getIntExtra(Constants.CURRENT_SCORE, 0);
         populateScore();
         populateSentence();
     }
@@ -58,6 +68,48 @@ public class LostScreen extends switchActivity {
         }
         else {
             return MASTER_SENTENCE;
+        }
+    }
+
+    /**
+     * Go to high score screen
+     */
+    public void switchToHighScores(View view) {
+        if(checkNameIsSet()) {
+            Intent intent = new Intent(this, HighScores.class);
+            startActivity(intent);
+            logger.log(Level.INFO, "### Going to Highcores from Lost ###");
+        }
+    }
+
+    @Override
+    public void switchToWelcome(View view) {
+        checkNameIsSet();
+        super.switchToWelcome(view);
+    }
+
+    @Override
+    public void switchToGame(View view) {
+        checkNameIsSet();
+        super.switchToGame(view);
+    }
+
+    private boolean checkNameIsSet() {
+        EditText nameText = (EditText)findViewById(R.id.nameField);
+        TextView enterName = (TextView)findViewById(R.id.enterName);
+
+        if(nameText.getText().length() == 0) {
+            if (enterName.getText().toString().indexOf("mandatory") < 0) {
+                enterName.append(" (mandatory)");
+            }
+            enterName.setTextColor(Color.RED);
+            return false;
+        }
+        else {
+            enterName.setTextColor(Color.BLACK);
+            //Write score in DB
+            getWriter().writeScore(nameText.getText().toString(), score);
+            return true;
         }
     }
 }

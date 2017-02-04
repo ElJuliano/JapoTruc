@@ -1,27 +1,19 @@
 package perso.shit.bull.julien.japotruc;
 
-import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.GradientDrawable;
-import android.graphics.drawable.shapes.Shape;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
-import android.view.View;
-import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import perso.shit.bull.julien.japotruc.sqlite.ScoreBean;
+import perso.shit.bull.julien.japotruc.sqlite.ScoreListHelper;
 
-public class HighScores extends AppCompatActivity {
+public class HighScores extends SwitchActivity {
 
     private perso.shit.bull.julien.japotruc.logic.HighScores highScore;
 
@@ -31,12 +23,8 @@ public class HighScores extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.highScore = new perso.shit.bull.julien.japotruc.logic.HighScores();
-
+        scoreList = ScoreListHelper.sortDescending(getReader().getTableContent());
         setContentView(R.layout.activity_high_scores);
-
-        Intent intent = getIntent();
-        scoreList = (List<ScoreBean>)intent.getSerializableExtra(WelcomeScreen.HIGH_SCORES);
-        System.out.println(scoreList.toString());
         displayScoreList();
 
     }

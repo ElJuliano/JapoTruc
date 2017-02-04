@@ -16,11 +16,10 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import java.util.logging.Level;
 
 import perso.shit.bull.julien.japotruc.logic.GameSession;
+import perso.shit.bull.julien.japotruc.utils.Constants;
 import perso.shit.bull.julien.japotruc.utils.SwipeDetector;
 
-public class GameScreen extends switchActivity {
-
-    public static final String CURRENT_SCORE = "CURRENT_SCORE";
+public class GameScreen extends SwitchActivity {
 
     private GameSession session;
 
@@ -127,7 +126,7 @@ public class GameScreen extends switchActivity {
 
     public void gotToLost(View view) {
         Intent intent = new Intent(this, LostScreen.class);
-        intent.putExtra(CURRENT_SCORE, this.session.getScore());
+        intent.putExtra(Constants.CURRENT_SCORE, this.session.getScore());
         startActivity(intent);
         myLogger.log(Level.INFO, "Go to Lost view from " + view.getClass().toString());
     }

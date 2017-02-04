@@ -2,7 +2,7 @@ package perso.shit.bull.julien.japotruc;
 
 import android.os.Bundle;
 
-public class WinScreen extends switchActivity {
+public class WinScreen extends SwitchActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

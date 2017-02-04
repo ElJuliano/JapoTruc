@@ -1,9 +1,11 @@
 package perso.shit.bull.julien.japotruc.sqlite;
 
 import android.content.ContentValues;
+import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 
+import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -11,7 +13,7 @@ import java.util.logging.Logger;
  * Created by Julien on 03/02/2017.
  */
 
-public class ScoreDBWriter {
+public class ScoreDBWriter implements Serializable {
 
     private SQLiteDatabase db;
 
@@ -30,7 +32,7 @@ public class ScoreDBWriter {
         // Insert the new row, returning the primary key value of the new row
         try {
             return db.insert(ScoreDBContract.scoreTableContent.TABLE_NAME, null, values);
-        } catch (SQLiteException e) {
+        } catch (SQLiteConstraintException e) {
             Logger.getAnonymousLogger().log(Level.WARNING, "An exception was raised when writting the DB : " + e.getMessage());
         }
         return -1;
