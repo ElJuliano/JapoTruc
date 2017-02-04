@@ -4,7 +4,7 @@ package perso.shit.bull.julien.japotruc.sqlite;
  * Created by Julien on 03/02/2017.
  */
 
-public class ScoreBean {
+public class ScoreBean implements ComparableScore<ComparableScore>{
 
     private Integer id;
     private String userName;
@@ -41,5 +41,8 @@ public class ScoreBean {
     }
 
 
-
+    @Override
+    public int compareTo(ComparableScore other) {
+        return this.score.compareTo(other.getScore());
+    }
 }

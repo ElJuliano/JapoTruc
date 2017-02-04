@@ -15,6 +15,7 @@ import perso.shit.bull.julien.japotruc.sqlite.ScoreBean;
 import perso.shit.bull.julien.japotruc.sqlite.ScoreDBHelper;
 import perso.shit.bull.julien.japotruc.sqlite.ScoreDBReader;
 import perso.shit.bull.julien.japotruc.sqlite.ScoreDBWriter;
+import perso.shit.bull.julien.japotruc.sqlite.ScoreListHelper;
 
 public class WelcomeScreen extends Activity {
 
@@ -44,17 +45,17 @@ public class WelcomeScreen extends Activity {
         System.out.println("writing entries in the database");
         System.out.println("------------------------");
         ScoreDBWriter writer = new ScoreDBWriter(dbHelper);
-        writer.writeScore("Julio", 20);
-        writer.writeScore("Eliot", 2);
+        writer.writeScore("Julio", 21);
+        writer.writeScore("Eliot", 12);
         writer.writeScore("renaud", 32);
-        writer.writeScore("Stephanie", 39);
+        writer.writeScore("Stephanie", 19);
         writer.writeScore("Lisa", 120);
         writer.writeScore("Lea", 3);
         System.out.println("------------------------");
         System.out.println("values writed, time to read");
         System.out.println("------------------------");
         ScoreDBReader reader = new ScoreDBReader(dbHelper);
-        for(ScoreBean bean : reader.getTableContent()) {
+        for(ScoreBean bean : ScoreListHelper.sortDescending(reader.getTableContent())) {
             System.out.println("Id : "+ bean.getId() +" Username : " + bean.getUserName() + " score : " + bean.getScore());
         }
 

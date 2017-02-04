@@ -12,7 +12,7 @@ public class ScoreDBHelper extends SQLiteOpenHelper {
 
         // If you change the database schema, you must increment the database version.
         public static final int DATABASE_VERSION = 1;
-        public static final String DATABASE_NAME = "scores_db.db";
+        public static final String DATABASE_NAME = "scoresdb.db";
 
         public ScoreDBHelper(Context context) {
             super(context, DATABASE_NAME, null, DATABASE_VERSION);

@@ -12,7 +12,8 @@ public final class ScoreDBContract {
             "CREATE TABLE " + scoreTableContent.TABLE_NAME + " (" +
                     scoreTableContent._ID + " INTEGER PRIMARY KEY," +
                     scoreTableContent.COLUMN_NAME_TITLE + " TEXT," +
-                    scoreTableContent.COLUMN_NAME_SUBTITLE + " INTEGER)";
+                    scoreTableContent.COLUMN_NAME_SUBTITLE + " INTEGER," +
+                    "unique("+ scoreTableContent.COLUMN_NAME_TITLE+ ","+scoreTableContent.COLUMN_NAME_SUBTITLE +"))";
 
     public static final String SQL_DELETE_ENTRIES =
             "DROP TABLE IF EXISTS " + scoreTableContent.TABLE_NAME;
