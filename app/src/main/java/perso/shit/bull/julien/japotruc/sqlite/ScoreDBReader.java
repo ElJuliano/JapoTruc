@@ -13,6 +13,8 @@ public class ScoreDBReader {
 
     private SQLiteDatabase db;
 
+    private ScoreDBHelper helper;
+
     // Define a projection that specifies which columns from the database
     // you will actually use after this query.
     private String[] projection = {
@@ -29,6 +31,7 @@ public class ScoreDBReader {
 
     public ScoreDBReader(ScoreDBHelper h) {
         this.db = h.getReadableDatabase();
+        this.helper = h;
     }
 
     /**
@@ -36,6 +39,9 @@ public class ScoreDBReader {
      * @return A Map
      */
     public List<ScoreBean> getTableContent() {
+        if (!db.isOpen()) {
+            db = helper.getWritableDatabase();
+        }
         //Getting a cursor over the whole table
         Cursor cursor = db.query(
                 ScoreDBContract.scoreTableContent.TABLE_NAME, // The table to query

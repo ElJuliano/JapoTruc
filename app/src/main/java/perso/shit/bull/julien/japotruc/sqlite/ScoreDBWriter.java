@@ -17,6 +17,7 @@ public class ScoreDBWriter implements Serializable {
 
     private SQLiteDatabase db;
 
+    private ScoreDBHelper helper;
 
     public ScoreDBWriter(ScoreDBHelper h) {
         this.db = h.getWritableDatabase();
@@ -31,6 +32,9 @@ public class ScoreDBWriter implements Serializable {
 
         // Insert the new row, returning the primary key value of the new row
         try {
+            if (!db.isOpen()) {
+                db = helper.getWritableDatabase();
+            }
             return db.insert(ScoreDBContract.scoreTableContent.TABLE_NAME, null, values);
         } catch (SQLiteConstraintException e) {
             Logger.getAnonymousLogger().log(Level.WARNING, "An exception was raised when writting the DB : " + e.getMessage());
