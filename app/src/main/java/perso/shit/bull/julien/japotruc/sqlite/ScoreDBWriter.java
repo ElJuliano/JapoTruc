@@ -2,6 +2,10 @@ package perso.shit.bull.julien.japotruc.sqlite;
 
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Created by Julien on 03/02/2017.
@@ -12,7 +16,7 @@ public class ScoreDBWriter {
     private SQLiteDatabase db;
 
 
-    public ScoreDBWriter (ScoreDBHelper h) {
+    public ScoreDBWriter(ScoreDBHelper h) {
         this.db = h.getWritableDatabase();
     }
 
@@ -24,6 +28,13 @@ public class ScoreDBWriter {
         values.put(ScoreDBContract.scoreTableContent.COLUMN_NAME_SUBTITLE, score);
 
         // Insert the new row, returning the primary key value of the new row
-        return db.insert(ScoreDBContract.scoreTableContent.TABLE_NAME, null, values);
+        try {
+            return db.insert(ScoreDBContract.scoreTableContent.TABLE_NAME, null, values);
+        } catch (SQLiteException e) {
+            Logger.getAnonymousLogger().log(Level.WARNING, "An exception was raised when writting the DB : " + e.getMessage());
+        }
+        return -1;
     }
 }
+
+

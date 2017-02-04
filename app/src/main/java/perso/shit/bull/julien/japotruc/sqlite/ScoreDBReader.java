@@ -28,9 +28,16 @@ public class ScoreDBReader {
     private Cursor cursor;
 
     public ScoreDBReader(ScoreDBHelper h) {
-        this.db = h.getWritableDatabase();
+        this.db = h.getReadableDatabase();
+    }
+
+    /**
+     * Iterate over the database and populate a map with all scores entries;
+     * @return A Map
+     */
+    public List<ScoreBean> getTableContent() {
         //Getting a cursor over the whole table
-        cursor = db.query(
+        Cursor cursor = db.query(
                 ScoreDBContract.scoreTableContent.TABLE_NAME, // The table to query
                 null,                               // The columns to return
                 null,                                // The columns for the WHERE clause
@@ -39,13 +46,6 @@ public class ScoreDBReader {
                 null,                                     // don't filter by row groups
                 null                                 // The sort order
         );
-    }
-
-    /**
-     * Iterate over the database and populate a map with all scores entries;
-     * @return A Map
-     */
-    public List<ScoreBean> getTableContent() {
         ArrayList<ScoreBean> scoreList = new ArrayList<ScoreBean>();
         while (cursor.moveToNext()) {
             scoreList.add(new ScoreBean(Integer.valueOf(cursor.getString(0)),

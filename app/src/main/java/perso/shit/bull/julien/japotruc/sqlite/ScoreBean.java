@@ -40,6 +40,10 @@ public class ScoreBean implements ComparableScore<ComparableScore>{
         this.id = id;
     }
 
+    public String toString() {
+        return "Username : "+ this.userName +" Score : "+this.getScore();
+    }
+
 
     @Override
     public int compareTo(ComparableScore other) {
