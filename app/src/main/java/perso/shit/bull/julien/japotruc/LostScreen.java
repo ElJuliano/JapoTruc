@@ -105,6 +105,7 @@ public class LostScreen extends SwitchActivity {
                 enterName.append(" (mandatory)");
             }
             enterName.setTextColor(Color.RED);
+            nameText.setError("Must be entered");
             return false;
         }
         else {
@@ -113,5 +114,13 @@ public class LostScreen extends SwitchActivity {
             getWriter().writeScore(nameText.getText().toString(), score);
             return true;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(checkNameIsSet()) {
+            super.onBackPressed();
+        }
+
     }
 }
