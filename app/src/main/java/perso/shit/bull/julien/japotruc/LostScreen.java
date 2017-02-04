@@ -84,14 +84,16 @@ public class LostScreen extends SwitchActivity {
 
     @Override
     public void switchToWelcome(View view) {
-        checkNameIsSet();
-        super.switchToWelcome(view);
+        if(checkNameIsSet()) {
+            super.switchToWelcome(view);
+        }
     }
 
     @Override
     public void switchToGame(View view) {
-        checkNameIsSet();
-        super.switchToGame(view);
+        if(checkNameIsSet()) {
+            super.switchToGame(view);
+        }
     }
 
     private boolean checkNameIsSet() {
